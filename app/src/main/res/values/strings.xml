@@ -6,4 +6,5 @@
     <string name="close">Close</string>
     <string name="background_image">background Image</string>
     <string name="dummy_text">dummy text</string>
+    <string name="image_for_card_view">image for card view</string>
 </resources>
