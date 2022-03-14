@@ -26,7 +26,8 @@ class FragmentFirst: Fragment() {
     private lateinit var buttonRemove:Button
     private var background:ImageView? = null
     private var list:ArrayList<Item> = adapterDummyList(100)
-    private val adapter = AdapterFirstFragment(list)
+    private val adapter = AdapterFirstFragment(list)  // get context in adapter declare global add in onCreateViewHolder from parent
+    private var map:HashMap<String,String> = HashMap(2)
 
     companion object{
         fun newInstance() = FragmentFirst();
@@ -45,6 +46,8 @@ class FragmentFirst: Fragment() {
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter = adapter
         setAdapterInsertRemove(view)
+        map.put("access_token","test")  // proper way   map["access_token"] = "test"
+        Log.d(TAG, "map: $map") // k
         return view
     }
 

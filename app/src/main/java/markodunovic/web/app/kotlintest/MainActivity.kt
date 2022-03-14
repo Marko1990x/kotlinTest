@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.squareup.picasso.Picasso
 import markodunovic.web.app.kotlintest.fragments.*
@@ -24,6 +25,10 @@ class MainActivity : AppCompatActivity() {
     private val fragmentSecond = FragmentSecond.newInstance();
     private val fragmentThird = FragmentThird.newInstance();
     private val fragmentFourth = FragmentFourth.newInstance();
+    private val fragmentBottomFirst = FragmentBottomFirst.newInstance()
+    private val fragmentBottomSecond = FragmentBottomSecond.newInstance()
+    private val fragmentBottomThird = FragmentBottomThird.newInstance()
+    private lateinit var bottomNavigation: BottomNavigationView
 
     companion object{  // hate this tag
         private val TAG:String? = MainActivity::class.simpleName;
@@ -35,6 +40,15 @@ class MainActivity : AppCompatActivity() {
         setTestButton();
         setNavigationDrawer();
         setBackImage();
+        bottomNavigation = findViewById(R.id.bottom_navigation)
+        bottomNavigation.setOnNavigationItemSelectedListener {
+            when(it.itemId){
+                R.id.bottom1 -> replaceFragment(fragmentBottomFirst,"bottom1")
+                R.id.bottom2 -> replaceFragment(fragmentBottomSecond,"bottom2")
+                R.id.bottom3 -> replaceFragment(fragmentBottomThird, "bottom3")
+            }
+            true
+        }
     }
 
     private fun setBackImage() {
@@ -43,7 +57,7 @@ class MainActivity : AppCompatActivity() {
         Picasso.get().load(image).fit().into(imageView)
     }
 
-    private fun setNavigationDrawer() {
+    private fun setNavigationDrawer() {  // nav drawer
         val drawerLayout: DrawerLayout = findViewById(R.id.drawerLayout);
         val navView: NavigationView = findViewById(R.id.navView);
         toggle = ActionBarDrawerToggle(this,drawerLayout,R.string.open,R.string.close);
