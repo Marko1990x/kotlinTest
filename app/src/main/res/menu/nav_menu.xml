@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view"
+    >
+
+    <item
+        android:id="@+id/fragment1"
+        android:icon="@drawable/ic_baseline_format_align_left_24"
+        android:title="Frag 1"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/fragment2"
+        android:icon="@drawable/ic_baseline_format_align_left_24"
+        android:title="Frag 2"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/fragment3"
+        android:icon="@drawable/ic_baseline_format_align_left_24"
+        android:title="Frag 3"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/fragment4"
+        android:icon="@drawable/ic_baseline_format_align_left_24"
+        android:title="Frag 4"
+        app:showAsAction="ifRoom" />
+
+</menu>

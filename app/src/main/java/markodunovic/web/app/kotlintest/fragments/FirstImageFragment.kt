@@ -13,7 +13,7 @@ class FirstImageFragment: Fragment() {
 
     private var background: ImageView? = null
 
-    private fun loadBackground(view:View){
+    private fun loadBackground(){
         val link:String = "https://github.com/Marko1990x/AppData/raw/main/moded/vertical/5.jpg";
         Picasso.get().load(link).into(background);
     }
@@ -29,7 +29,7 @@ class FirstImageFragment: Fragment() {
     ): View {
         val view:View = inflater.inflate(R.layout.fragment_home,container,false);
         setButtons(view)
-        loadBackground(view)
+        loadBackground()
         return view;
     }
 
