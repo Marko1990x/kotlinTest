@@ -12,7 +12,9 @@ import com.squareup.picasso.Picasso
 import markodunovic.web.app.kotlintest.R
 import markodunovic.web.app.kotlintest.data.Item
 
-class AdapterFirstFragment(private val list:List<Item>, private var context:Context?): RecyclerView.Adapter<AdapterFirstFragment.AdapterFirstFragmentViewHolder>() {
+class AdapterFirstFragment(private val list:List<Item>): RecyclerView.Adapter<AdapterFirstFragment.AdapterFirstFragmentViewHolder>() {
+
+    private var cont:Context? = null  // this is the proper way to get context from the adapter
 
     class AdapterFirstFragmentViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         val imageView:ImageView = itemView.findViewById(R.id.card_imageView);
@@ -25,6 +27,7 @@ class AdapterFirstFragment(private val list:List<Item>, private var context:Cont
         viewType: Int
     ): AdapterFirstFragmentViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.card_recycler,parent,false);
+        cont = parent.context
         return AdapterFirstFragmentViewHolder(itemView)
     }
 
@@ -34,7 +37,7 @@ class AdapterFirstFragment(private val list:List<Item>, private var context:Cont
         holder.imageView.setColorFilter(R.color.teal_700)
         holder.textView.text = currentItem.text1
         holder.textView2.setOnClickListener(View.OnClickListener {
-            Toast.makeText(context,"I dun been clicked item $position",Toast.LENGTH_SHORT).show()
+            Toast.makeText(cont,"I dun been clicked item $position",Toast.LENGTH_SHORT).show()
         })
     }
 

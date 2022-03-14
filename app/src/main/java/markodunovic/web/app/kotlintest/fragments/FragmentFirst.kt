@@ -1,10 +1,12 @@
 package markodunovic.web.app.kotlintest.fragments
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -14,15 +16,20 @@ import com.squareup.picasso.Picasso
 import markodunovic.web.app.kotlintest.R
 import markodunovic.web.app.kotlintest.adapters.AdapterFirstFragment
 import markodunovic.web.app.kotlintest.data.Item
+import kotlin.random.Random
 
 class FragmentFirst: Fragment() {
-
     private lateinit var txtName: TextView
     private lateinit var recyclerView: RecyclerView
+    private lateinit var buttonInsert:Button
+    private lateinit var buttonRemove:Button
     private var background:ImageView? = null
+    private var list:ArrayList<Item> = adapterDummyList(100)
+    private val adapter = AdapterFirstFragment(list)
 
     companion object{
         fun newInstance() = FragmentFirst();
+        private val TAG:String? = FragmentFirst::class.simpleName
     }
 
     override fun onCreateView(
@@ -32,13 +39,33 @@ class FragmentFirst: Fragment() {
     ): View {
         val view:View = inflater.inflate(R.layout.fragment_first,container,false)
         setButtons(view);
-        val list:List<Item> = adapterDummyList(100)
         recyclerView = view.findViewById(R.id.recycler)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.setHasFixedSize(true)
-        recyclerView.adapter = AdapterFirstFragment(list,context)
+        recyclerView.adapter = adapter
+        setAdapterInsertRemove(view)
         return view
     }
+
+    private fun setAdapterInsertRemove(view: View) {
+        buttonInsert = view.findViewById(R.id.buttonInsert)
+        buttonInsert.setOnClickListener(View.OnClickListener {
+            Log.d(TAG, "button insert: ")
+            val index:Int = Random.nextInt(10)
+            val newItem = Item(R.drawable.a,"new item @ $index","$index")
+            list.add(index,newItem)
+            adapter.notifyDataSetChanged() // ok it works
+
+        })
+        buttonRemove = view.findViewById(R.id.buttonRemove)
+        buttonRemove.setOnClickListener(View.OnClickListener {
+            Log.d(TAG, "button remove: ")
+
+
+        })
+
+    }
+
 
     private fun setButtons(view: View) {
         txtName = view.findViewById(R.id.txt_name);
@@ -46,9 +73,10 @@ class FragmentFirst: Fragment() {
         txtName.setText(FragmentFirst::class.simpleName);
         val link:String = "https://github.com/Marko1990x/AppData/raw/main/moded/vertical/2.jpg";
         Picasso.get().load(link).fit().into(background);
+
     }
 
-    private fun adapterDummyList(size: Int): List<Item> {
+    private fun adapterDummyList(size: Int): ArrayList<Item> {
 
         val list = ArrayList<Item>()
 
