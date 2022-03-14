@@ -11,12 +11,16 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
-import markodunovic.web.app.kotlintest.fragments.FirstImageFragment
+import markodunovic.web.app.kotlintest.fragments.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var txtView: TextView;
-    lateinit var toggle: ActionBarDrawerToggle
-    val fragment = FirstImageFragment.newInstance();
+    private lateinit var toggle: ActionBarDrawerToggle
+    private val fragment = TestFragment.newInstance();
+    private val fragmentFirst = FragmentFirst.newInstance();
+    private val fragmentSecond = FragmentSecond.newInstance();
+    private val fragmentThird = FragmentThird.newInstance();
+    private val fragmentFourth = FragmentFourth.newInstance();
 
     companion object{  // hate this tag
         private val TAG:String? = MainActivity::class.simpleName;
@@ -38,11 +42,10 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         navView.setNavigationItemSelectedListener {
             when(it.itemId){
-                R.id.fragment1 -> Toast.makeText(applicationContext,"from fragment 1",Toast.LENGTH_SHORT).show()
-                R.id.fragment2 -> Toast.makeText(applicationContext,"from fragment 2",Toast.LENGTH_SHORT).show()
-                R.id.fragment3 -> Toast.makeText(applicationContext,"from fragment 3",Toast.LENGTH_SHORT).show()
-                R.id.fragment4 -> Toast.makeText(applicationContext,"from fragment 4",Toast.LENGTH_SHORT).show()
-
+                R.id.fragment1 -> replaceFragment(fragmentFirst,"firstFragment")
+                R.id.fragment2 -> replaceFragment(fragmentSecond,"secondFragment")
+                R.id.fragment3 -> replaceFragment(fragmentThird,"thirdFragment")
+                R.id.fragment4 -> replaceFragment(fragmentFourth,"fourthFragment")
             }
             true
         }
