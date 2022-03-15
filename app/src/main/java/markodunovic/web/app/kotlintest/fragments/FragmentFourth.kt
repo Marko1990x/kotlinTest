@@ -9,10 +9,12 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.squareup.picasso.Picasso
 import markodunovic.web.app.kotlintest.R
+import markodunovic.web.app.kotlintest.singleton.Singleton
 
 class FragmentFourth : Fragment() {
     private lateinit var txtName: TextView
     private var background: ImageView? = null
+    private var singleton = context?.let { Singleton.getInstance(it) };
 
     companion object{
         fun newInstance() = FragmentFourth();
@@ -25,6 +27,7 @@ class FragmentFourth : Fragment() {
     ): View {
         val view:View = layoutInflater.inflate(R.layout.fragment_fourth,container,false)
         setButtons(view)
+        singleton?.getTestData()
         return view
     }
 
