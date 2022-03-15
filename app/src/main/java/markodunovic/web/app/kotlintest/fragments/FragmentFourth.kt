@@ -27,7 +27,7 @@ class FragmentFourth : Fragment() {
     ): View {
         val view:View = layoutInflater.inflate(R.layout.fragment_fourth,container,false)
         setButtons(view)
-        singleton?.getTestData()
+        singleton.getTestData(result = )
         return view
     }
 

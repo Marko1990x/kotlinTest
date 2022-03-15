@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.Log
 import retrofit2.*
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.*
 
 // companion replacement for  static
 class Singleton private constructor(context: Context) {
@@ -27,26 +26,28 @@ class Singleton private constructor(context: Context) {
         }
     }
 
-    fun getTestData(){
+    fun getTestData(result:Result){
         dataRetro.enqueue(object : Callback<List<Int>?> {
             override fun onResponse(call: Call<List<Int>?>, response: Response<List<Int>?>) {
-                if (response.body()!= null){
-                    var lst:List<Int> = response.body()!!
+                val resp = response.body()
+                if (resp != null){
+                    var lst:List<Int> = resp
                     for (a:Int in lst){
                         Log.d("SingletonResponse", "onResponse: $a")
                     }
+                    result.onSuccess(lst)
                 }
             }
 
             override fun onFailure(call: Call<List<Int>?>, t: Throwable) {
                 Log.d("SingletonResponse", "Failed")
-
+                //result.onError("I dun goffed")
             }
         })
     }
 
     interface Result{
-        fun onSuccess(o:Objects)
+        fun onSuccess(o: List<Int>)
         fun onError(error:String)
     }
 }
