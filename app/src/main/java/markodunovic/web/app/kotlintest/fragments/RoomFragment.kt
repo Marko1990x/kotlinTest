@@ -9,9 +9,16 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.squareup.picasso.Picasso
 import markodunovic.web.app.kotlintest.R
+import markodunovic.web.app.kotlintest.adapters.AdapterFirstFragment
+import markodunovic.web.app.kotlintest.adapters.AdapterForRoom
+import markodunovic.web.app.kotlintest.room.viewmodel.PetsViewModel
 
 class RoomFragment : Fragment() {
 
@@ -19,6 +26,9 @@ class RoomFragment : Fragment() {
     private lateinit var fab: FloatingActionButton
     private var background: ImageView? = null
     private var addFragment = FragmentAdd.newInstance()
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var petUserViewModel: PetsViewModel
+    private val adapter = AdapterForRoom()
 
     companion object {
         fun newInstance() = RoomFragment();
@@ -31,6 +41,16 @@ class RoomFragment : Fragment() {
     ): View {
         val view: View = inflater.inflate(R.layout.fragment_third, container, false);
         setButtons(view)
+
+        petUserViewModel = ViewModelProvider(this).get(PetsViewModel::class.java)
+        recyclerView = view.findViewById(R.id.recycler)
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.setHasFixedSize(false)
+        recyclerView.adapter = adapter
+        petUserViewModel.readAllData.observe(viewLifecycleOwner, Observer { pet ->
+            adapter.setData(pet)
+        })
+
         return view
     }
 

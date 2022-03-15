@@ -12,7 +12,7 @@ import markodunovic.web.app.kotlintest.room.repository.PetsRepo
 
 class PetsViewModel(application: Application): AndroidViewModel(application){
 
-    private val readAllData:LiveData<List<Animal>>
+    val readAllData:LiveData<List<Animal>>
     private val repository:PetsRepo
 
     init {
@@ -27,5 +27,7 @@ class PetsViewModel(application: Application): AndroidViewModel(application){
             repository.addAnimal(pet)
         }
     }
+
+
 
 }
