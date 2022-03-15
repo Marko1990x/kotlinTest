@@ -7,7 +7,6 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
@@ -23,7 +22,7 @@ class MainActivity : AppCompatActivity() {
     private val fragment = TestFragment.newInstance();
     private val fragmentFirst = FragmentFirst.newInstance();
     private val fragmentSecond = FragmentSecond.newInstance();
-    private val fragmentThird = FragmentThird.newInstance();
+    private val fragmentThird = RoomFragment.newInstance();
     private val fragmentFourth = FragmentFourth.newInstance();
     private val fragmentBottomFirst = FragmentBottomFirst.newInstance()
     private val fragmentBottomSecond = FragmentBottomSecond.newInstance()
@@ -49,6 +48,7 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+
     }
 
     private fun setBackImage() {
